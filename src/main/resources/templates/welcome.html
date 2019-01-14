@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>airq app</title>
+    <link href='https://fonts.googleapis.com/css?family=Nova Mono' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Nova Mono';font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        <span th:text="'Message: ' + ${message}"></span>
+    </h2>
+
+    <p th:text="'PM 2.5:' + ${PM2}"></p>
+    <p th:text="'PM  10:' + ${PM10}"></p>
+
+</body>
+</html>

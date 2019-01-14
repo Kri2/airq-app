@@ -1,0 +1,15 @@
+package io.github.kri2.airq.airqapp;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+public class AirqAppApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AirqAppApplication.class, args);
+	}
+
+}
+
