@@ -17,10 +17,8 @@ public class GiosApiService
     }};
 
     public Map<String,String> loadDataFromGiosServer(){
-        Map<String,String> map = new HashMap<>();
-        map = urls.entrySet().stream().map(s->getOneParameterItem(s.getValue()))
+        return urls.entrySet().stream().map(s->getOneParameterItem(s.getValue()))
                   .collect(Collectors.toMap(par->par.getKey(),par->par.getLastValue().getValue()));
-        return map;
     }
     
     private ParameterItem getOneParameterItem(String url){
