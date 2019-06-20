@@ -29,7 +29,7 @@ public class WelcomeController
     @RequestMapping("/")
     public String welcome(Map<String, Object> model){
         model.put("message", "Welcome to airq app!");
-        Set<ParameterReadout> set = giosApiService.loadToSet();
+        Set<ParameterReadout> set = giosApiService.findAll(urls);
         set.stream().forEach(x->System.out.println(x.getKey()+x.getValue()));
         model.put("VALUES",set);
         //set.stream().forEach(p->model.put(p.getKey(),p.getValue()));
