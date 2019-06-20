@@ -14,9 +14,12 @@ import java.util.Set;
 public class WelcomeController
 {
     Logger LOGGER = LoggerFactory.getLogger(WelcomeController.class);
+    GiosApiService giosApiService;
     
     @Autowired
-    GiosApiService giosApiService;
+    public WelcomeController(GiosApiService giosApiService){
+        this.giosApiService = giosApiService;
+    }
     
     Map<String,String> urls = new HashMap<String,String>(){{
         put("pm25","http://api.gios.gov.pl/pjp-api/rest/data/getData/2772");
@@ -26,7 +29,6 @@ public class WelcomeController
     @RequestMapping("/")
     public String welcome(Map<String, Object> model){
         model.put("message", "Welcome to airq app!");
-        Map<String, String> map = giosApiService.loadDataFromGiosServer();
         Set<ParameterReadout> set = giosApiService.loadToSet();
         set.stream().forEach(x->System.out.println(x.getKey()+x.getValue()));
         model.put("VALUES",set);
