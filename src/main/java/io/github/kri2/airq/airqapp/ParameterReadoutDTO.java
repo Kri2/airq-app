@@ -2,15 +2,25 @@ package io.github.kri2.airq.airqapp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
-
+@Getter
+@Setter
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ParameterItem
+public class ParameterReadoutDTO
 {
     private String key;
     private List<DateAndValue> values;
+    
+    @Getter
+    @Setter
+    static class DateAndValue{
+        String date;
+        String value;
+    }
     
     public DateAndValue getLastValue(){
         // index 0 in List is most current readout, but often its value is null, if that's the case read next (up to 5 readouts prior)

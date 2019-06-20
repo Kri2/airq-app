@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,12 +21,27 @@ public class GiosApiService
     }};
 
     public Map<String,String> loadDataFromGiosServer(){
-        return urls.entrySet().stream().map(s->getOneParameterItem(s.getValue()))
+        return urls.entrySet().stream().map(s-> findByUrl(s.getValue()))
                   .collect(Collectors.toMap(par->par.getKey(),par->par.getLastValue().getValue()));
     }
     
-    private ParameterItem getOneParameterItem(String url){
-        ParameterItem parameterItem = restTemplate.getForObject(url,ParameterItem.class);
-        return parameterItem;
+    public Set<ParameterReadout> loadToSet(){
+        return urls.entrySet().stream().map(s->findByUrl(s.getValue()))
+                   .map(this::mapFromDTO)
+                   .collect(Collectors.toSet());
     }
+    
+    private ParameterReadoutDTO findByUrl(String url){
+        ParameterReadoutDTO parameterReadoutDTO = restTemplate.getForObject(url, ParameterReadoutDTO.class);
+        return parameterReadoutDTO;
+    }
+    
+    public ParameterReadout mapFromDTO(ParameterReadoutDTO parameterReadoutDTO){
+        return new ParameterReadout(
+            parameterReadoutDTO.getKey(),
+            parameterReadoutDTO.getLastValue().getValue(),
+            parameterReadoutDTO.getLastValue().getDate()
+        );
+    }
+    
 }

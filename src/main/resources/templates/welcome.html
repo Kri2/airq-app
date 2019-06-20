@@ -10,6 +10,17 @@
             height: 100%;
             width: 100%;
             font-family: 'Nova Mono';font-size: 22px;
+            color: orange;
+            background-color: #00384d;
+        }
+        td {
+            min-width: 100px;
+        }
+        .color-green{
+            color:green;
+        }
+        .color-red{
+            color:red;
         }
     </style>
 </head>
@@ -18,10 +29,17 @@
         <span th:text="'Hello. ' + ${message}"></span>
     </h2>
 
-    <p th:text="'PM2.5:   ' + ${#numbers.formatDecimal(PM2, 0, 'COMMA', 2, 'POINT')} + ' ug/m3'"></p>
-    <p th:text="'PM 10:   ' + ${#numbers.formatDecimal(PM10,0, 'COMMA', 2, 'POINT')} + ' ug/m3'"></p>
-
-    <div th:if="${PM2}<50"><h2 style="color:green;">Air quality is good :)</h2></div>
-    <div th:if="${PM2}>50"><h2 style="color:red">Air quality is bad :(</h2></div>
+    <table>
+        <thead>
+        </thead>
+        <tr th:if="${VALUES.empty}">
+            <td colspan="2"> No data available </td>
+        </tr>
+        <tr th:each="value : ${VALUES}">
+            <td><span th:text="${value.key}"> key </span></td>
+            <td><span th:text="${#numbers.formatDecimal(value.value,0,'COMMA',2,'POINT')} + ' ug/m3'"
+                      th:classappend="${value.value}<50 ? color-green : color-red"> value </span></td>
+        </tr>
+    </table>
 </body>
 </html>
