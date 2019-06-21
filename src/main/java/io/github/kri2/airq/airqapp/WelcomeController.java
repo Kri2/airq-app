@@ -4,8 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.HttpClientErrorException;
 
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,9 +36,20 @@ public class WelcomeController
         Set<ParameterReadout> set = giosApiService.findAll(urls);
         set.stream().forEach(x->System.out.println(x.getKey()+x.getValue()));
         model.put("VALUES",set);
-        //set.stream().forEach(p->model.put(p.getKey(),p.getValue()));
-        //model.put("PM2",  map.get("PM2.5"));
-        //model.put("PM10", map.get("PM10"));
         return "welcome";
+    }
+    
+    @ExceptionHandler(HttpClientErrorException.class)
+    public String handleClientError(Model model) {
+        model.addAttribute("error_message",
+                           "page not found, or other error.");
+        return "page_not_found";
+    }
+    
+    @ExceptionHandler(UnknownHostException.class)
+    public String hadleGiosApiError(Model model){
+        model.addAttribute("error_message",
+                           "GIOS server not reachable");
+        return "api_not_available";
     }
 }
