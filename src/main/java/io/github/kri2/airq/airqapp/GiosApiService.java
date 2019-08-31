@@ -5,6 +5,6 @@ import java.util.Set;
 
 public interface GiosApiService{
     public ParameterReadout findByUrl(String url);
-    public Set<ParameterReadout> findAll(Map<String, String> urlMap);
+    public Set<ParameterReadout> findAll(Map<String, String> urlsMap);
     public ParameterReadout mapFromDTO(ParameterReadoutDTO parameterReadoutDTO);
 }

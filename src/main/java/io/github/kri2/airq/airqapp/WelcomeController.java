@@ -24,18 +24,16 @@ public class WelcomeController
     public WelcomeController(GiosApiService giosApiService){
         this.giosApiService = giosApiService;
     }
-    
-    Map<String,String> urls = new HashMap<String,String>(){{
-        put("pm25","http://api.gios.gov.pl/pjp-api/rest/data/getData/2772");
-        put("pm10", "http://api.gios.gov.pl/pjp-api/rest/data/getData/2770");
-    }};
-    
+    /*
+    @Autowired  chyba tak powinno być. Jak to wstrzykiwać
+    ParamsMap paramsMap;
+    */
     @RequestMapping("/")
     public String welcome(Map<String, Object> model){
         model.put("message", "Welcome to airq app!");
-        Set<ParameterReadout> set = giosApiService.findAll(urls);
-        set.stream().forEach(x->System.out.println(x.getKey()+x.getValue()));
-        model.put("VALUES",set);
+        Set<ParameterReadout> parametersSet = giosApiService.findAll(ParamsMap.urls);
+        model.put("VALUES", parametersSet);
+        parametersSet.stream().forEach(x->LOGGER.info(x.getKey()+x.getValue()));
         return "welcome";
     }
     

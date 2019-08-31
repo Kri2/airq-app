@@ -17,10 +17,10 @@ public class GiosApiServiceImpl implements GiosApiService
     
     
     
-    public Set<ParameterReadout> findAll(Map<String, String> urlMap){
-        return urlMap.entrySet().stream()
-                   .map(s->findByUrl(s.getValue()))
-                   .collect(Collectors.toSet());
+    public Set<ParameterReadout> findAll(Map<String, String> urlsMap){
+        return urlsMap.entrySet().stream()
+                      .map(s->findByUrl(s.getValue()))
+                      .collect(Collectors.toSet());
     }
     
     public ParameterReadout findByUrl(String url){

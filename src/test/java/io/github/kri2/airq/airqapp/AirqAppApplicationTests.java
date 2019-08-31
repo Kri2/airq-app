@@ -13,6 +13,6 @@ public class AirqAppApplicationTests {
 	@Test
 	public void contextLoads() throws Exception{
 	}
-
+	// może test giosservice czy działa prawidłowo (outside api integration test?)
 }
 

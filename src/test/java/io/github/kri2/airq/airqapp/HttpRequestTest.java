@@ -1,60 +1,46 @@
 package io.github.kri2.airq.airqapp;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
 /**
- * we should also write some tests that assert the behaviour of our application. To do that we could start the application up and listen for a connection like it would do in production, and then send an HTTP request and assert the response.
+ * Future Integration test
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
+@SpringBootTest  // full app context is needed
+//@WebMvcTest(WelcomeController.class) // This is integration test, full context needed
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
 public class HttpRequestTest
 {
-    @LocalServerPort
-    private int port;
-    
     @Autowired
-    private TestRestTemplate restTemplate;
-    
-    @Autowired
-    private WebApplicationContext wac;
-    
     private MockMvc mockMvc;
+    @Autowired
+    MockHttpSession session;
+    @MockBean
+    GiosApiService giosApiService;
     
     @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception{
-        // check that contains default message
-        /*
-        assertThat(this.restTemplate.getForObject(
-            "http://localhost:"+port+"/",String.class)
-                                    .contains("Hello World");*/
-        /*
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-        mockMvc.perform(get("http://localhost:"+port+"/"))
-               .andExpect(status().isOk());
-        */
-        
-        //---> probably to refactor, but so far the best I came up with
-        assertTrue(
-            this.restTemplate.getForObject("http://localhost:"+port+"/",String.class)
-                             .contains("Air")
-                  );
-        
+    public void testDefaultResponse() throws Exception{
+        //given
+        // prepare data and mock's behaviour
+        // not much to do here, just get standard response
+        //when
+        mockMvc.perform(get("/").accept(MediaType.TEXT_HTML))
+               .andExpect(status().isOk())
+               .andExpect(content().string(containsString("Welcome to airq app!")));
+        //then
     }
 }
