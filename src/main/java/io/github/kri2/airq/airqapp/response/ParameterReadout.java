@@ -1,4 +1,4 @@
-package io.github.kri2.airq.airqapp;
+package io.github.kri2.airq.airqapp.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

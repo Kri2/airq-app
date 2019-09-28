@@ -1,4 +1,4 @@
-package io.github.kri2.airq.airqapp;
+package io.github.kri2.airq.airqapp.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DateAndValue
 {
-    String date;
-    String value;
+    private String date;
+    private String value;
     
     @Override
     public String toString(){

@@ -1,12 +1,12 @@
-package io.github.kri2.airq.airqapp;
+package io.github.kri2.airq.airqapp.service;
 
+import io.github.kri2.airq.airqapp.ParamsUrls;
+import io.github.kri2.airq.airqapp.response.ParameterReadout;
+import io.github.kri2.airq.airqapp.response.ParameterReadoutDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.tags.Param;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,7 +26,7 @@ public class GiosApiServiceImpl implements GiosApiService
     }
     
     public ParameterReadout findByUrl(String url){
-        return mapFromDTO(restTemplate.getForObject(url,ParameterReadoutDTO.class));
+        return mapFromDTO(restTemplate.getForObject(url, ParameterReadoutDTO.class));
     }
     
     private ParameterReadout mapFromDTO(ParameterReadoutDTO parameterReadoutDTO){

@@ -1,4 +1,6 @@
-package io.github.kri2.airq.airqapp;
+package io.github.kri2.airq.airqapp.service;
+
+import io.github.kri2.airq.airqapp.response.ParameterReadout;
 
 import java.util.Set;
 

@@ -1,5 +1,7 @@
 package io.github.kri2.airq.airqapp;
 
+import io.github.kri2.airq.airqapp.response.ParameterReadout;
+import io.github.kri2.airq.airqapp.service.GiosApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
