@@ -1,5 +1,6 @@
 package io.github.kri2.airq.airqapp;
 
+import io.github.kri2.airq.airqapp.service.GiosApiService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
