@@ -17,13 +17,14 @@ import java.util.Set;
 @Controller
 public class WelcomeController
 {
-    Logger LOGGER = LoggerFactory.getLogger(WelcomeController.class);
-    GiosApiService giosApiService;
+    private Logger LOGGER = LoggerFactory.getLogger(WelcomeController.class);
+    private GiosApiService giosApiService;
     
     @Autowired
     public WelcomeController(GiosApiService giosApiService){
         this.giosApiService = giosApiService;
     }
+    
     /*
     @Autowired  chyba tak powinno być. Jak to wstrzykiwać
     ParamsMap paramsMap;
@@ -31,9 +32,9 @@ public class WelcomeController
     @RequestMapping("/")
     public String welcome(Map<String, Object> model){
         model.put("message", "Welcome to airq app!");
-        Set<ParameterReadout> parametersSet = giosApiService.findAll(ParamsMap.urls);
+        Set<ParameterReadout> parametersSet = giosApiService.findAll();
         model.put("VALUES", parametersSet);
-        parametersSet.stream().forEach(x->LOGGER.info(x.getKey()+x.getValue()));
+        parametersSet.forEach(x->LOGGER.info(x.getKey() + x.getValue()));
         return "welcome";
     }
     
