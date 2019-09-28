@@ -26,10 +26,6 @@ public class WelcomeController
         this.giosApiService = giosApiService;
     }
     
-    /*
-    @Autowired  chyba tak powinno być. Jak to wstrzykiwać
-    ParamsMap paramsMap;
-    */
     @RequestMapping("/")
     public String welcome(Map<String, Object> model){
         model.put("message", "Welcome to airq app!");
