@@ -25,7 +25,7 @@ public class GiosApiServiceImpl implements GiosApiService
                      .collect(Collectors.toSet());
     }
     
-    public ParameterReadout findByUrl(String url){
+    private ParameterReadout findByUrl(String url){
         return mapFromDTO(restTemplate.getForObject(url, ParameterReadoutDTO.class));
     }
     
