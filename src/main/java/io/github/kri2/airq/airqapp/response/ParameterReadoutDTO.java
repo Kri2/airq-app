@@ -18,12 +18,14 @@ public class ParameterReadoutDTO
     
     public DateAndValue getLastValue(){
         // index 0 in List is most current readout, but often its value is null, if that's the case read next
-        return values.stream()
+        return values.isEmpty() ?
+               new DateAndValue("N/A","-1") :
+               values.stream()
                      .filter(v->v.getValue()!=null).findFirst().orElse(null); // TODO: consider orElseThrow here
     }
     
     @Override
     public String toString(){
-        return this.key + this.values.get(1);
+        return values.isEmpty() ? this.key + "N/A" : this.key + this.values.get(1);
     }
 }
